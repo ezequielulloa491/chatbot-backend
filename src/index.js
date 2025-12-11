@@ -5,6 +5,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Ruta raíz (Render necesita esto)
+app.get("/", (req, res) => {
+  res.send("Servidor funcionando 🚀");
+});
+
 // MINI IA 💬
 function miniIA(message) {
   const msg = message.toLowerCase();
@@ -47,7 +52,8 @@ app.post("/chat", (req, res) => {
   res.json({ reply });
 });
 
-// Inicializar server
-app.listen(3000, () =>
-  console.log("🚀 Servidor de IA corriendo en http://localhost:3000")
+// Puerto dinámico para Render
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () =>
+  console.log(`🚀 Servidor de IA corriendo en puerto ${PORT}`)
 );
